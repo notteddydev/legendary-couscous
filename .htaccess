@@ -1,0 +1,36 @@
+#RewriteEngine on
+#RewriteBase /public/
+#RewriteCond %{HTTP_HOST} ^brightonfv.co.uk$ [NC,OR]
+#RewriteCond %{HTTP_HOST} ^brightonfv.co.uk$
+#RewriteCond %{REQUEST_URI} !public/
+#RewriteRule ^(.*)$ /public/$1 [L]
+#AddHandler application/x-httpd-php80 .php .php5 .php4 .php3
+
+#<IfModule mod_rewrite.c>
+#       RewriteCond %{REQUEST_URI} !/public
+#       RewriteRule ^(.*)$ public/$1 [L]
+#</IfModule>
+
+#<IfModule mod_rewrite.c>
+#    RewriteEngine On
+#    RewriteCond %{HTTP_HOST} ^brightonfv.co.uk$ [NC,OR]
+#    RewriteCond %{HTTP_HOST} ^brightonfv.co.uk$
+#    RewriteCond %{REQUEST_FILENAME} !-f
+#    RewriteCond %{REQUEST_FILENAME} !-d
+#    RewriteCond %{REQUEST_URI} !public/
+#    RewriteRule (.*) /public/index.php [QSA,L]
+#</IfModule>
+
+
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} -d [OR]
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ ^$1 [N]
+
+RewriteCond %{REQUEST_URI} (\.\w+$) [NC]
+RewriteRule ^(.*)$ public/$1
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ server.php
